@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/menu :: head('Account Managment')">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" th:replace="fragments/menu :: menu('account')">
+</header>
+<div class="container">
+    <h2>Account Management</h2>
+
+    <div>Account Count : <span th:text="${accounts.size}"></span></div>
+    <p class="lead">
+        Account Management Home<br>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Account Number</th>
+                <th scope="col">Name</th>
+                <th scope="col">Note</th>
+                <th scope="col">Enabled</th>
+                <th scope="col">Created Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="account : ${accounts}">
+                <td><a th:text="${account.accountnumber}" th:href="@{/account/detail(id=${account.id})}">account number</a></td>
+                <td th:text="${account.name}">name</td>
+                <td th:text="${account.note}">note</td>
+                <td th:text="${account.enabled}">1</td>
+                <td th:text="${account.createdate}">12/31/2020</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-end">
+        <a type="button" class="btn btn-primary" th:href="@{/account/detail}">New Account</a>
+    </div>
+</div>
+
+</body>
+</html>

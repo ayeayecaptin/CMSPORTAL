@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/menu :: head('Account')">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" th:replace="fragments/menu :: menu('Account')"></nav>
+</header>
+<div class="container">
+    <h2>Account</h2>
+    <form action="#" th:action="@{/account/detail}" th:object="${accountdto}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <div class="form-group">
+            <label for="accountnumber" class="form-label">accountnumber</label>
+            <input type="text" class="form-control" id="accountnumber" th:field="*{accountnumber}">
+        </div>
+       <div class="form-group">
+            <label for="name" class="form-label">name</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}">
+        </div>
+        <div class="form-group">
+            <label for="note" class="form-label">note</label>
+            <input type="text" class="form-control" id="note" th:field="*{note}">
+        </div>
+        <div class="form-group">
+            <label for="createdate" class="form-label">Create Date</label>
+            <input type="date" class="form-control" id="createdate" th:field="*{createdate}">
+        </div>
+       <div class="form-group">
+            <label for="enabled" class="form-label">enabled</label>
+            <input type="text" class="form-control" id="enabled" th:field="*{enabled}">
+        </div>
+
+       <!-- <li th:each="item, stat : *{students}" class="itemRow">
+            <div>
+                <label th:for="${'student-'+stat.index}">Field 1</label>
+                <input type="text" class="form-control quantity" name="firstname"
+                       th:field="*{students[__${stat.index}__].firstname}" th:id="${'student-'+stat.index}"/>
+                <label th:for="${'student-'+stat.index}">Field 1</label>
+                <input type="text" class="form-control quantity" name="lastname"
+                       th:field="*{students[__${stat.index}__].lastname}" th:id="${'student-'+stat.index}"/>
+
+
+            </div>
+        </li>-->
+        <div class="form-group">
+            <label for="addStudent" class="form-label">Add Student</label>
+            <select id="addStudent" name="addStudent" class="form-control" th:field="*{studentappend}">
+                <option value="0">not selected</option>
+                <option th:each="s : ${students}" th:text="|${s.lastname}, ${s.firstname}|" th:value="${s.ID}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="addUser" class="form-label">Add user</label>
+            <select id="addUser" name="addUser" class="form-control" th:field="*{userappend}">
+                <option value="0">not selected</option>
+                <option th:each="u : ${users}" th:text="|${u.username}|" th:value="${u.id}"></option>
+            </select>
+        </div>
+     <!--   <input type="hidden"  id="users" th:field="${account.users}">
+        <input type="hidden"  id="students" th:field="${account.students}">-->
+        <div class="text-end">
+            <a type="button" class="btn btn-primary" th:href="@{/account/list}">취소</a>
+            <button type="submit" class="btn btn-primary">확인</button>
+        </div>
+    </form>
+
+
+
+    <div th:replace="student/student :: student-list(${accountdto.students})"></div>
+    <div th:replace="user/list :: user-list(${accountdto.users})"></div>
+
+</div>
+
+</body>
+</html>

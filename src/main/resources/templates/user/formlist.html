@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/menu :: head('New User')">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" th:replace="fragments/menu :: menu('New User')">
+</header>
+<div class="container">
+    <h2>New Student</h2>
+    <form action="#" th:action="@{/user/detail}" th:object="${auser}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <div class="form-group">
+            <label for="username" class="form-label">username</label>
+            <input type="text" class="form-control" id="username" th:field="*{username}">
+        </div>
+        <div class="form-group">
+            <label for="password" class="form-label">password</label>
+            <input type="text" class="form-control" id="password" th:field="*{password}">
+        </div>
+        <div class="form-group">
+            <label for="enabled" class="form-label">enabled</label>
+            <input type="text" class="form-control" id="enabled" th:field="*{enabled}">
+        </div>
+
+            <table class="table" th:object="${auser.roles}">
+                <thead>
+                    <tr>
+                        <th scope="col">Role</th>
+                        <th scope="col">delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="x : ${#object}" >
+                        <td><input type="text" th:value="${x.role}">
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        <div class=+-"text-end">
+            <a type="button" class="btn btn-primary" th:href="@{/user/formlist}">새사용자</a>
+            <button type="submit" class="btn btn-primary">저장</button>
+            <a type="button" class="btn btn-danger" th:href="@{/user/delete(id=*{id})}"><i class="far fa-trash-alt">삭제</i></a>
+        </div>
+    </form>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">User Name</th>
+            <th scope="col">Enabled</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${users.empty}">
+            <td colspan="3"> No Users </td>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td><a th:text="${user.username}" th:href="@{/user/detail(id=${user.id})}">User Name</a></td>
+            <td>
+                <ul class="list-group" th:each="r :${user.roles}">
+                    <li class=""list-group-item th:text="*{r.role}"></li>
+                </ul>
+            </td>
+            <td th:text="${user.enabled}">1</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

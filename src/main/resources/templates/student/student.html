@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/menu :: head('Student Managment')">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" th:replace="fragments/menu :: menu('student')">
+</header>
+<div class="container">
+    <h2>Student Management</h2>
+
+    <div>총 학생수 : <span th:text="${students.size}"></span></div>
+    <p class="lead">
+        Student Management Home<br>
+    </p>
+    <table class="table" th:fragment="student-list(students)">
+        <thead>
+            <tr>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Nick Name</th>
+                <th scope="col">DOB</th>
+                <th scope="col">SSN</th>
+                <th scope="col">Address</th>
+                <th scope="col">City</th>
+                <th scope="col">Active</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:if="${ students.empty}">
+                <td colspan="9"> No Student </td>
+            </tr>
+            <tr th:each="student : ${students}">
+                <td th:text="${student.firstname}">David</td>
+                <td th:text="${student.lastname}">Jung</td>
+                <td th:text="${student.nickname}">소노미</td>
+                <td th:text="${student.dob}">August 18 2017</td>
+                <td th:text="${student.ssn}">214-343-3044</td>
+                <td th:text="${student.address1}">27915 hunters rock ln</td>
+                <td th:text="${student.city}">katy</td>
+                <td th:text="${student.active}">1</td>
+                <td>
+                    <a type="button" class="btn btn-success" th:href="@{/student/detail(id=${student.ID})}"><i class="fas fa-edit">edit</i></a>
+                   <!-- <a type="button" class="btn btn-danger"><i class="far fa-trash-alt">del</i></a>-->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-end">
+        <a type="button" class="btn btn-primary" th:href="@{/student/detail}">New Student</a>
+    </div>
+</div>
+
+</body>
+</html>

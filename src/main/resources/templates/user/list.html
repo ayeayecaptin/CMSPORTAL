@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/menu :: head('User Managment')">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" th:replace="fragments/menu :: menu('User')"></nav>
+</header>
+<div class="container">
+    <h2>User Management</h2>
+
+    <div>User Count : <span th:text="${users.size}"></span></div>
+    <p class="lead">
+        User Management Home<br>
+    </p>
+
+    <table class="table" th:fragment="user-list(users)">
+        <thead>
+            <tr>
+                <th scope="col">User Name</th>
+                <th scope="col">Enabled</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:if="${users.empty}">
+                <td colspan="3"> No Users </td>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td><a th:text="${user.username}" th:href="@{/user/detail(id=${user.id})}">User Name</a></td>
+                <td th:text="${user.enabled}">1</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-end">
+        <a type="button" class="btn btn-primary" th:href="@{/user/detail}">New User</a>
+    </div>
+</div>
+
+</body>
+</html>

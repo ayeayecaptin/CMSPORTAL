@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/menu :: head('classroom')">
+</head>
+<body>
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" th:replace="fragments/menu :: menu('classroom')">
+</header>
+<div class="container">
+  <h2>Class Room</h2>
+  <a type="button" class="btn btn-primary" th:href="@{/classroom/formlist(id=0)}">새 클래스룸</a>
+  <div th:if="${classroomdto.classroom != null}">
+    <form action="#" th:action="@{/classroom/formlist}" th:object="${classroomdto}" method="post" >
+      <input type="hidden" th:field="*{classroom.id}">
+      <div class="form-group">
+        <label for="addRole" class="form-label">Class Room</label>
+        <select id="addRole" name="addRole" class="form-control" th:field="*{classroom.roomname}">
+          <option value="0">Choose role to add</option>
+          <option th:each="r : ${rooms}" th:text="|${r}|" th:value="${r}"></option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="schoolyear" class="form-label">School Year</label>
+        <input type="text" class="form-control" id="schoolyear" th:field="*{classroom.schoolyear}">
+      </div>
+      <div class="form-group">
+        <label for="semester" class="form-label">Semester</label>
+        <select th:field="*{classroom.semester}" id="semester" class="form-select">
+          <option text="Choose semester" value=""></option>
+          <option th:each="s :${semesters}" th:text="${s}" th:value="${s}"></option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="mainteacher" class="form-label">Main Teacher</label>
+        <select th:field="*{classroom.mainteacher}" id="mainteacher" class="form-select">
+          <option text="Choose main teacher" value="">Choose main teacher</option>
+          <option th:each="mainteacher :${faculties}" th:text="|${mainteacher.lastname}, ${mainteacher.firstname}|" th:value="${mainteacher.id}"></option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="assitantteacher" class="form-label">Assitant Teacher</label>
+        <select th:field="*{classroom.assitantteacher}" id="assitantteacher" class="form-select">
+          <option text="Choose assitant teacher" value="">Choose assitant teacher</option>
+          <option th:each="assitantteacher :${faculties}" th:text="|${assitantteacher.lastname}, ${assitantteacher.firstname}|" th:value="${assitantteacher.id}"></option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="startdate" class="form-label">Start Date</label>
+        <input type="date" class="form-control" id="startdate" th:field="*{classroom.startdate}">
+      </div>
+      <div class="form-group">
+        <label for="enddate" class="form-label">End Date</label>
+        <input type="date" class="form-control" id="enddate" th:field="*{classroom.enddate}">
+      </div>
+      <div class="form-group">
+        <label for="addStudent" class="form-label">Add Student</label>
+        <select id="addStudent" name="addStudent" class="form-control" th:field="*{newstudent}">
+          <option value="0">not selected</option>
+          <option th:each="ss : ${students}" th:text="|${ss.lastname},${ss.firstname} (${ss.nickname})|" th:value="${ss.ID}"></option>
+        </select>
+      </div>
+
+      <table th:object="${classroomdto.classroom.students}" class="table">
+        <thead>
+          <tr>
+            <th scope="col">Student</th>
+            <th scope="col">delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="st : ${#object}">
+            <td th:text="|${st.lastname}, ${st.firstname} (${st.nickname})|">
+            </td>
+            <td>
+              <a type="button" class="btn btn-danger" th:href="@{/classroom/removestudent(studentid=${st.ID}, classroomid=${classroomdto.classroom.id})}"><i class="far fa-trash-alt">del</i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="text-end">
+
+        <button type="submit" class="btn btn-primary">저장</button>
+        <a type="button" class="btn btn-danger" th:href="@{/classroom/delete(id=*{classroom.id})}" th:if="${classroomdto.classroom.id >0}"><i class="far fa-trash-alt">삭제</i></a>
+      </div>
+    </form>
+  </div>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Class Name</th>
+      <th scope="col">School Year</th>
+      <th scope="col">Semester</th>
+      <th scope="col">Main Teacher</th>
+      <th scope="col">Assistant Teacher</th>
+      <th scope="col">Start Date</th>
+      <th scope="col">End Date</th>
+      <th scope="col">Note</th>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${classrooms.empty}">
+      <td colspan="3"> No Class Room </td>
+    </tr>
+    <tr th:each="f : ${classrooms}">
+      <td><a th:text="|${f.roomname}|" th:href="@{/classroom/formlist(id=${f.id})}">Class Name</a></td>
+      <td th:text="${f.schoolyear}">1</td>
+      <td th:text="${f.semester}">1</td>
+      <td th:text="|${f.mainteacher != null ? f.mainteacher.lastname :''}, ${f.mainteacher != null ? f.mainteacher.firstname :''}|">1</td>
+      <td th:text="|${f.assitantteacher != null ? f.assitantteacher.lastname:''}, ${f.assitantteacher != null ? f.assitantteacher.firstname :''}|">1</td>
+      <td th:text="${f.startdate}">1</td>
+      <td th:text="${f.enddate}">1</td>
+      <td th:text="${f.note}">1</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
+

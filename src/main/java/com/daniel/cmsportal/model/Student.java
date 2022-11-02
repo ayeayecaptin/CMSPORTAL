@@ -52,6 +52,10 @@ public class Student {
     @JoinColumn(name = "account_id")
     private Account account;
 
+    @ManyToOne
+    @JoinColumn(name = "classroom_id")
+    private ClassRoom classroom;
+
 
 
 

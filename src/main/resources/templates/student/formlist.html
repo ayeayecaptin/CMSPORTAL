@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/menu :: head('Student')">
+</head>
+<body>
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" th:replace="fragments/menu :: menu('student')">
+</header>
+<div class="container">
+  <h2>New Student</h2>
+  <form action="#" th:action="@{/student/formlist}" th:object="${student}" method="post">
+    <input type="hidden" th:field="*{ID}">
+    <div class="form-group">
+      <label for="firstname" class="form-label">username</label>
+      <input type="text" class="form-control" id="firstname" th:field="*{firstname}">
+    </div>
+    <div class="form-group">
+      <label for="lastname" class="form-label">lastname</label>
+      <input type="text" class="form-control" id="lastname" th:field="*{lastname}">
+    </div>
+    <div class="form-group">
+      <label for="nickname" class="form-label">nickname</label>
+      <input type="text" class="form-control" id="nickname" th:field="*{nickname}">
+    </div>
+    <div class="form-group">
+      <label for="ssn" class="form-label">ssn</label>
+      <input type="text" class="form-control" id="ssn" th:field="*{ssn}">
+    </div>
+    <div class="form-group">
+      <label for="address1" class="form-label">address1</label>
+      <input type="text" class="form-control" id="address1" th:field="*{address1}">
+    </div>
+    <div class="form-group">
+      <label for="address2" class="form-label">address2</label>
+      <input type="text" class="form-control" id="address2" th:field="*{address2}">
+    </div>
+    <div class="form-group">
+      <label for="city" class="form-label">city</label>
+      <input type="text" class="form-control" id="city" th:field="*{city}">
+    </div>
+    <div class="form-group">
+      <label for="zip" class="form-label">zip</label>
+      <input type="text" class="form-control" id="zip" th:field="*{zip}">
+    </div>
+    <div class="form-group">
+      <label for="createdt" class="form-label">Created Date</label>
+      <input type="date" class="form-control" id="createdt" th:field="*{createdt}">
+    </div>
+    <div class="form-group">
+      <label for="updatedt" class="form-label">Updated Date</label>
+      <input type="date" class="form-control" id="updatedt" th:field="*{updatedt}">
+    </div>
+    <div class="form-group">
+      <label for="active" class="form-check-label">Active</label>
+      <input type="checkbox" class="form-check-input" id="active" th:field="*{active}" th:checked="*{active}">
+    </div>
+    <div class="form-group">
+      <label for="email" class="form-label">EMail</label>
+      <input type="text" class="form-control" id="email" th:field="*{email}">
+    </div>
+    <div class="form-group">
+      <label for="note" class="form-label">note</label>
+      <input type="text" class="form-control" id="note" th:field="*{note}">
+    </div>
+
+  <!--  <div class="form-group">
+      <label for="addRole" class="form-label">Add Role</label>
+      <select id="addRole" name="addRole" class="form-control" th:field="*{roleToAppend}">
+        <option value="0">not selected</option>
+        <option th:each="rr : ${allroles}" th:text="|${rr.role}|" th:value="${rr.id}"></option>
+      </select>
+    </div>--><!--
+
+
+    <form action="#" th:action="@{/student/detail}" th:object="${student}" method="post">
+      <input type="hidden" th:field="*{ID}">
+      <div class="form-group">
+        <label for="firstname" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="firstname" th:field="*{firstname}">
+      </div>
+      <div class="form-group">
+        <label for="lastname" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="lastname" th:field="*{lastname}">
+      </div>
+      <div class="form-group">
+        <label for="nickname" class="form-label">Friendly Name</label>
+        <input type="text" class="form-control" id="nickname" th:field="*{nickname}">
+      </div>
+      <div class="form-group">
+        <label for="ssn" class="form-label">ssn</label>
+        <input type="text" class="form-control" id="ssn" th:field="*{ssn}">
+      </div>
+      <div class="form-group">
+        <label for="dob" class="form-label">DOB</label>
+        <input type="date" class="form-control" id="dob" th:field="*{dob}">
+      </div>
+      <div class="form-group">
+        <label for="address" class="form-label">Address</label>
+        <input type="text" class="form-control" id="address" th:field="*{address1}">
+      </div>
+      <div class="form-group">
+        <label for="city" class="form-label">city</label>
+        <input type="text" class="form-control" id="city" th:field="*{city}">
+      </div>
+      <div class="form-group">
+        <label for="zip" class="form-label">Zip Code</label>
+        <input type="text" class="form-control" id="zip" th:field="*{zip}">
+      </div>
+    </form>-->
+
+    <div class="text-end">
+      <a type="button" class="btn btn-primary" th:href="@{/student/formlist}">새사용자</a>
+      <button type="submit" class="btn btn-primary">저장</button>
+      <a type="button" class="btn btn-danger" th:href="@{/student/delete(id=*{ID})}"><i class="far fa-trash-alt">삭제</i></a>
+    </div>
+  </form>
+
+
+  <table class="table" th:fragment="student-list(students)">
+    <thead>
+    <tr>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Nick Name</th>
+      <th scope="col">DOB</th>
+      <th scope="col">SSN</th>
+      <th scope="col">Address</th>
+      <th scope="col">City</th>
+      <th scope="col">Active</th>
+      <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${ students.empty}">
+      <td colspan="9"> No Student </td>
+    </tr>
+    <tr th:each="student : ${students}">
+      <td th:text="${student.firstname}">David</td>
+      <td th:text="${student.lastname}">Jung</td>
+      <td th:text="${student.nickname}">소노미</td>
+      <td th:text="${student.dob}">August 18 2017</td>
+      <td th:text="${student.ssn}">214-343-3044</td>
+      <td th:text="${student.address1}">27915 hunters rock ln</td>
+      <td th:text="${student.city}">katy</td>
+      <td th:text="${student.active}">1</td>
+      <td>
+        <a type="button" class="btn btn-success" th:href="@{/student/formlist(id=${student.ID})}"><i class="fas fa-edit">edit</i></a>
+        <!-- <a type="button" class="btn btn-danger"><i class="far fa-trash-alt">del</i></a>-->
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
+

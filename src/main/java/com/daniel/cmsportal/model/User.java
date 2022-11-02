@@ -5,7 +5,9 @@ import lombok.Data;
 import javax.persistence.*;
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Data
@@ -30,7 +32,9 @@ public class User {
             name="User_Role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles = new ArrayList<>();
+    @MapKey(name="id")
+
+    private Map<Long,Role> roles = new HashMap<Long,Role>();
 
 
 
